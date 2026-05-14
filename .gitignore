@@ -1,0 +1,17 @@
+# Node
+node_modules/
+dist/
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+env/
+
+# Django
+db.sqlite3
+media/
+staticfiles/
+
+# Variáveis de ambiente
+.env
