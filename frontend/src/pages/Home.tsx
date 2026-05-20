@@ -1,4 +1,4 @@
-    import React, { FormEvent, useEffect, useState } from 'react';
+    import { type FormEvent, useEffect, useState } from 'react';
     import { api } from '../api/axios';
     import { TweetInteractions } from '../components/TweetInteractions';
 import { FollowButton } from '../components/FollowButton';
@@ -31,7 +31,16 @@ import { FollowButton } from '../components/FollowButton';
     };
 
     useEffect(() => {
-        fetchFeed();
+        const loadFeed = async () => {
+            try {
+                const response = await api.get('/tweets/feed/');
+                setTweets(response.data.results);
+            } catch (error) {
+                console.error('Erro ao buscar o feed', error);
+            }
+        };
+
+        void loadFeed();
     }, []);
 
     // 3. Envia um novo tweet
