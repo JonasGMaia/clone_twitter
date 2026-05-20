@@ -40,10 +40,9 @@ class ToggleFollowView(APIView):
         )
 
 class ProfileView(RetrieveUpdateAPIView):
-serializer_class = UserProfileSerializer
-permission_classes = [IsAuthenticated]
+    # As linhas abaixo DEVEM ter esse recuo à esquerda
+    serializer_class = UserProfileSerializer
+    permission_classes = [IsAuthenticated]
 
-    # Sobrescrevemos o get_object para sempre retornar o usuário dono do token,
-    # dispensando a necessidade de passar o ID na URL.
-def get_object(self):
-    return self.request.user
+    def get_object(self):
+        return self.request.user
