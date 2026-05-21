@@ -1,7 +1,7 @@
     // src/pages/Login.tsx
     import React, { useState } from 'react';
     import { useDispatch } from 'react-redux';
-    import { AuthContainer, AuthBox, Title, InputGroup, Label, Input, SubmitButton } from '../styles/AuthStyles';
+    import { AuthContainer, AuthBox, Title, InputGroup, Label, Input, SubmitButton, AuthFooter, StyledLink } from '../styles/AuthStyles';
     // Importe a sua action do Redux aqui. Exemplo:
     // import { loginUser } from '../features/auth/authSlice';
 
@@ -45,9 +45,13 @@
 
             <SubmitButton type="submit">Acessar</SubmitButton>
             </form>
+
+            <AuthFooter>
+                Não tem uma conta? <StyledLink to="/register">Registe-se aqui</StyledLink>
+            </AuthFooter>
         </AuthBox>
         </AuthContainer>
     );
     };
 
-    export default Login;
+    export  {Login};

@@ -1,58 +1,55 @@
-    import { useState } from 'react';
+    // src/components/TweetInteractions.tsx
+    import React, { useState } from 'react';
     import { api } from '../api/axios';
+    import { ActionContainer, IconButton } from '../styles/InteractionStyles';
 
     interface TweetInteractionsProps {
     tweetId: number;
     initialLikes: number;
     initialComments: number;
+    initialHasLiked?: boolean;
     }
 
-    export function TweetInteractions({ tweetId, initialLikes, initialComments }: TweetInteractionsProps) {
+    export const TweetInteractions: React.FC<TweetInteractionsProps> = ({ 
+    tweetId, 
+    initialLikes, 
+    initialComments,
+    initialHasLiked = false
+    }) => {
     const [likes, setLikes] = useState(initialLikes);
-    const [isLiked, setIsLiked] = useState(false); // Estado local simplificado
+    const [hasLiked, setHasLiked] = useState(initialHasLiked);
     const [isLoading, setIsLoading] = useState(false);
 
     const handleLike = async () => {
         if (isLoading) return;
         setIsLoading(true);
+        
+        // Atualização otimista
+        const newHasLiked = !hasLiked;
+        setHasLiked(newHasLiked);
+        setLikes((prev) => newHasLiked ? prev + 1 : prev - 1);
 
         try {
-        const response = await api.post(`/tweets/${tweetId}/like/`);
-        
-        if (response.data.status === 'liked') {
-            setLikes(prev => prev + 1);
-            setIsLiked(true);
-        } else {
-            setLikes(prev => prev - 1);
-            setIsLiked(false);
-        }
+        await api.post(`/tweets/${tweetId}/like/`);
         } catch (error) {
         console.error('Erro ao curtir', error);
+        // Reverte o visual se a chamada falhar
+        setHasLiked(hasLiked);
+        setLikes((prev) => hasLiked ? prev + 1 : prev - 1);
         } finally {
         setIsLoading(false);
         }
     };
 
     return (
-        <div style={{ display: 'flex', gap: '30px', fontSize: '14px', color: 'gray', marginTop: '10px' }}>
-        {/* Botão de Comentário */}
-        <div style={{ cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '5px' }}>
-            💬 <span>{initialComments}</span>
-        </div>
-
-        {/* Botão de Curtida */}
-        <div 
-            onClick={handleLike} 
-            style={{ 
-            cursor: isLoading ? 'wait' : 'pointer', 
-            display: 'flex', 
-            alignItems: 'center', 
-            gap: '5px',
-            color: isLiked ? '#f91880' : 'gray' 
-            }}
-        >
-            {isLiked ? '❤️' : '🤍'} <span>{likes}</span>
-        </div>
-        </div>
+        <ActionContainer>
+        <IconButton $active={hasLiked} onClick={handleLike} disabled={isLoading}>
+            <span>{hasLiked ? '♥' : '♡'}</span> {likes}
+        </IconButton>
+        
+        <IconButton disabled>
+            <span>💬</span> {initialComments}
+        </IconButton>
+        </ActionContainer>
     );
-    }
+    };

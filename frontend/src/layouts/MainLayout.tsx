@@ -1,22 +1,21 @@
-    import { Outlet, Link } from 'react-router-dom';
+    // src/layouts/MainLayout.tsx
+    import React from 'react';
+    import { Outlet } from 'react-router-dom';
+    import { LayoutContainer, Sidebar, MainContent, NavLink } from '../styles/LayoutStyles';
 
-    export function MainLayout() {
+    export const MainLayout: React.FC = () => {
     return (
-        <div style={{ display: 'flex', minHeight: '100vh' }}>
-        {/* Sidebar Simples (Menu lateral) */}
-        <aside style={{ width: '250px', borderRight: '1px solid #ccc', padding: '20px' }}>
-            <h2>Clone Twitter</h2>
-            <nav style={{ display: 'flex', flexDirection: 'column', gap: '10px', marginTop: '20px' }}>
-            <Link to="/">Página Inicial</Link>
-            <Link to="/profile">Perfil</Link>
-            <button style={{ marginTop: '20px' }}>Sair</button>
-            </nav>
-        </aside>
+        <LayoutContainer>
+        <Sidebar>
+            <NavLink to="/">Início</NavLink>
+            <NavLink to="/profile">Perfil</NavLink>
+            <NavLink to="/login">Sair</NavLink> {/* Pode ser adaptado depois para chamar a action de logout no Redux */}
+        </Sidebar>
 
-        {/* Conteúdo Dinâmico Principal */}
-        <main style={{ flex: 1, padding: '20px', maxWidth: '600px', margin: '0 auto' }}>
-            <Outlet /> {/* Aqui renderiza o Feed ou o Perfil */}
-        </main>
-        </div>
+        <MainContent>
+            {/* O Outlet renderiza a página atual (Home, Profile, etc) */}
+            <Outlet />
+        </MainContent>
+        </LayoutContainer>
     );
-    }
+    };
