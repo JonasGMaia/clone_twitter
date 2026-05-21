@@ -1,43 +1,46 @@
-    import { useState } from 'react';
+    // src/components/FollowButton.tsx
+    import React, { useState } from 'react';
     import { api } from '../api/axios';
+    import { FollowBtn } from '../styles/InteractionStyles';
 
     interface FollowButtonProps {
     username: string;
     initialIsFollowing?: boolean;
     }
 
-    export function FollowButton({ username, initialIsFollowing = false }: FollowButtonProps) {
+    export const FollowButton: React.FC<FollowButtonProps> = ({ username, initialIsFollowing = false }) => {
     const [isFollowing, setIsFollowing] = useState(initialIsFollowing);
     const [isLoading, setIsLoading] = useState(false);
 
     const handleToggleFollow = async () => {
+        if (isLoading) return;
         setIsLoading(true);
+        
+        // Atualização otimista: inverte o visual imediatamente
+        setIsFollowing(!isFollowing);
+        
         try {
-        const response = await api.post(`/users/${username}/follow/`);
-        // A nossa API retorna action: "followed" ou "unfollowed"
-        setIsFollowing(response.data.action === 'followed');
+        if (isFollowing) {
+            await api.delete(`/users/${username}/unfollow/`);
+        } else {
+            await api.post(`/users/${username}/follow/`);
+        }
         } catch (error) {
-        console.error('Erro ao alternar seguidor', error);
+        console.error('Erro ao seguir/deixar de seguir', error);
+        // Reverte se a API falhar
+        setIsFollowing(isFollowing);
         } finally {
         setIsLoading(false);
         }
     };
 
     return (
-        <button 
+        <FollowBtn 
+        $isFollowing={isFollowing} 
         onClick={handleToggleFollow} 
         disabled={isLoading}
-        style={{
-            padding: '6px 16px',
-            borderRadius: '20px',
-            border: '1px solid #1d9bf0',
-            backgroundColor: isFollowing ? 'white' : '#1d9bf0',
-            color: isFollowing ? '#1d9bf0' : 'white',
-            fontWeight: 'bold',
-            cursor: isLoading ? 'not-allowed' : 'pointer'
-        }}
         >
         {isFollowing ? 'Seguindo' : 'Seguir'}
-        </button>
+        </FollowBtn>
     );
-    }
+    };

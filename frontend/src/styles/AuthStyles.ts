@@ -1,5 +1,6 @@
     // src/styles/AuthStyles.ts
     import styled from 'styled-components';
+    import { Link } from 'react-router-dom';
 
     export const AuthContainer = styled.div`
     display: flex;
@@ -57,4 +58,23 @@
     text-transform: uppercase;
     letter-spacing: 1px;
     margin-top: ${(props) => props.theme.spacing.medium};
+    `;
+
+        export const AuthFooter = styled.div`
+    margin-top: ${(props) => props.theme.spacing.large};
+    text-align: center;
+    font-size: 0.9rem;
+    `;
+
+    export const StyledLink = styled(Link)`
+    color: ${(props) => props.theme.colors.primary};
+    font-weight: bold;
+    text-decoration: underline;
+    text-underline-offset: 4px;
+    transition: all 0.2s ease-in-out;
+
+    &:hover {
+        color: ${(props) => props.theme.colors.text};
+        background-color: ${(props) => props.theme.colors.primary};
+    }
     `;

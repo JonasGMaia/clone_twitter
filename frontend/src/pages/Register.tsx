@@ -1,7 +1,7 @@
     // src/pages/Register.tsx
     import React, { useState } from 'react';
     import { useDispatch } from 'react-redux';
-    import { AuthContainer, AuthBox, Title, InputGroup, Label, Input, SubmitButton } from '../styles/AuthStyles';
+    import { AuthContainer, AuthBox, Title, InputGroup, Label, Input, SubmitButton, AuthFooter, StyledLink } from '../styles/AuthStyles';
     // import { registerUser } from '../features/auth/authSlice';
 
     const Register: React.FC = () => {
@@ -19,7 +19,7 @@
     return (
         <AuthContainer>
         <AuthBox>
-            <Title>Registo</Title>
+            <Title>Registro</Title>
             <form onSubmit={handleSubmit}>
             <InputGroup>
                 <Label htmlFor="reg-username">Utilizador</Label>
@@ -56,9 +56,13 @@
 
             <SubmitButton type="submit">Criar Conta</SubmitButton>
             </form>
+            <AuthFooter>
+                Já tem uma conta? 
+                <StyledLink to="/login">Entre aqui</StyledLink>
+            </AuthFooter>
         </AuthBox>
         </AuthContainer>
     );
     };
 
-    export default Register;
+    export  {Register};

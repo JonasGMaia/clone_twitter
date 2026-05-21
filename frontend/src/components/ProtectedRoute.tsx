@@ -7,9 +7,9 @@
     const isAuthenticated = useSelector((state: RootState) => state.auth.isAuthenticated);
 
     // Se não estiver logado, redireciona para a página de login
-    if (!isAuthenticated) {
-        return <Navigate to="/login" replace />;
-    }
+    // if (!isAuthenticated) {
+    //     return <Navigate to="/login" replace />;
+    // }
 
     // Se estiver logado, permite renderizar as rotas filhas (o Outlet do layout)
     return <Outlet />;
