@@ -65,9 +65,9 @@ MIDDLEWARE = [
 
 AUTH_USER_MODEL = "users.User"
 
-CORS_ALLOWED_ORIGINS = [
-    "http://localhost:5173",
-]
+
+# Usa o env.list para ler a string e transformá-la em uma lista do Python
+CORS_ALLOWED_ORIGINS = env.list('CORS_ALLOWED_ORIGINS', default=['http://localhost:5173'])
 
 ROOT_URLCONF = "core.urls"
 
@@ -95,11 +95,11 @@ WSGI_APPLICATION = "core.wsgi.application"
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'twitter_db',
-        'USER': 'twitter_user',
-        'PASSWORD': 'senha_segura',
-        'HOST': '127.0.0.1',
-        'PORT': '5433',
+        'NAME': env('DB_NAME', default='twitter_db'),
+        'USER': env('DB_USER', default='twitter_user'),
+        'PASSWORD': env('DB_PASSWORD'), # Agora ele vai exigir que a senha exista no .env
+        'HOST': env('DB_HOST', default='127.0.0.1'),
+        'PORT': env('DB_PORT', default='5433'),
     }
 }
 
