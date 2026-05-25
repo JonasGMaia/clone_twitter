@@ -60,7 +60,7 @@ class TweetViewSet(viewsets.ModelViewSet):
         # Filtra tweets onde o autor está na lista de quem o usuário segue OU é o próprio usuário
         tweets = Tweet.objects.filter(
             Q(author__in=user.following.all()) | Q(author=user)
-        ).distinct() # distinct() garante que não venham resultados duplicados
+        ).distinct().order_by('-created_at') # distinct() garante que não venham resultados duplicados
         
         # Aplica a paginação 
         page = self.paginate_queryset(tweets)
