@@ -1,3 +1,6 @@
+from rest_framework import generics
+from rest_framework.permissions import AllowAny
+from .serializers import UserRegistrationSerializer
 from rest_framework.generics import RetrieveUpdateAPIView
 from .serializers import UserProfileSerializer
 from rest_framework.views import APIView
@@ -46,3 +49,7 @@ class ProfileView(RetrieveUpdateAPIView):
 
     def get_object(self):
         return self.request.user
+
+class UserCreateView(generics.CreateAPIView):
+    serializer_class = UserRegistrationSerializer
+    permission_classes = [AllowAny] # Permite que utilizadores não logados consigam aceder para criar conta

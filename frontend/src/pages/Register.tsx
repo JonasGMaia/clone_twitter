@@ -1,19 +1,33 @@
-    // src/pages/Register.tsx
     import React, { useState } from 'react';
-    import { useDispatch } from 'react-redux';
+    import { useNavigate } from 'react-router-dom';
+    import { api } from '../api/axios';
     import { AuthContainer, AuthBox, Title, InputGroup, Label, Input, SubmitButton, AuthFooter, StyledLink } from '../styles/AuthStyles';
-    // import { registerUser } from '../features/auth/authSlice';
 
-    const Register: React.FC = () => {
-    const dispatch = useDispatch();
+    export const Register: React.FC = () => {
+    const navigate = useNavigate();
     const [username, setUsername] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const [error, setError] = useState('');
+    const [isLoading, setIsLoading] = useState(false);
 
-    const handleSubmit = (e: React.FormEvent) => {
+    const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
-        // dispatch(registerUser({ username, email, password }));
-        console.log('Register attempt:', { username, email, password });
+        setIsLoading(true);
+        setError('');
+
+        try {
+        // Ajuste a rota '/users/' se o seu endpoint no Django for diferente (ex: '/users/register/')
+        await api.post('/users/', { username, email, password });
+        
+        // Se registar com sucesso, envia para a página de login
+        navigate('/login');
+        } catch (err) {
+        console.error('Erro no registo:', err);
+        setError('Erro ao criar conta. Verifique os dados e tente novamente.');
+        } finally {
+        setIsLoading(false);
+        }
     };
 
     return (
@@ -54,8 +68,13 @@
                 />
             </InputGroup>
 
-            <SubmitButton type="submit">Criar Conta</SubmitButton>
+            {error && <p style={{ color: 'red', marginBottom: '16px', fontSize: '0.9rem' }}>{error}</p>}
+
+            <SubmitButton type="submit" disabled={isLoading}>
+                {isLoading ? 'A criar...' : 'Criar Conta'}
+            </SubmitButton>
             </form>
+            
             <AuthFooter>
                 Já tem uma conta? 
                 <StyledLink to="/login">Entre aqui</StyledLink>
@@ -64,5 +83,3 @@
         </AuthContainer>
     );
     };
-
-    export  {Register};
