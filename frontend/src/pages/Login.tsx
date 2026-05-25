@@ -1,19 +1,38 @@
-    // src/pages/Login.tsx
     import React, { useState } from 'react';
     import { useDispatch } from 'react-redux';
+    import { useNavigate } from 'react-router-dom';
+    import { api } from '../api/axios';
+    import { loginSuccess } from '../features/auth/authSlice';
     import { AuthContainer, AuthBox, Title, InputGroup, Label, Input, SubmitButton, AuthFooter, StyledLink } from '../styles/AuthStyles';
-    // Importe a sua action do Redux aqui. Exemplo:
-    // import { loginUser } from '../features/auth/authSlice';
 
-    const Login: React.FC = () => {
+    export const Login: React.FC = () => {
     const dispatch = useDispatch();
+    const navigate = useNavigate();
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
+    const [error, setError] = useState('');
+    const [isLoading, setIsLoading] = useState(false);
 
-    const handleSubmit = (e: React.FormEvent) => {
+    const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
-        // dispatch(loginUser({ username, password }));
-        console.log('Login attempt:', { username, password });
+        setIsLoading(true);
+        setError('');
+
+        try {
+        // Faz a chamada à API para obter o token
+        const response = await api.post('/token/', { username, password });
+        
+        // Guarda o token no Redux e no LocalStorage
+        dispatch(loginSuccess(response.data.access));
+        
+        // Redireciona para a Home
+        navigate('/');
+        } catch (err) {
+        console.error('Erro no login:', err);
+        setError('Credenciais inválidas. Tente novamente.');
+        } finally {
+        setIsLoading(false);
+        }
     };
 
     return (
@@ -43,7 +62,11 @@
                 />
             </InputGroup>
 
-            <SubmitButton type="submit">Acessar</SubmitButton>
+            {error && <p style={{ color: 'red', marginBottom: '16px', fontSize: '0.9rem' }}>{error}</p>}
+
+            <SubmitButton type="submit" disabled={isLoading}>
+                {isLoading ? 'Acessando...' : 'Acessar'}
+            </SubmitButton>
             </form>
 
             <AuthFooter>
@@ -53,5 +76,3 @@
         </AuthContainer>
     );
     };
-
-    export  {Login};
