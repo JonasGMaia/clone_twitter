@@ -1,73 +1,90 @@
-# React + TypeScript + Vite
+# Twitter Clone
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Uma aplicação full-stack que recria as principais funcionalidades de um microblog.
 
-Currently, two official plugins are available:
+## Funcionalidades
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+  **Sistema de Autenticação e Criação de Conta**
+O sistema permite que novos usuários se cadastrem e façam login com segurança.
 
-## React Compiler
+  **Configuração de Perfil**
+O usuário pode alterar sua foto de perfil, nome e senha.
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+  **Sistema de Seguir**
+É possível seguir outros usuários e ver sua lista de seguidos e seguidores.
 
-## Expanding the ESLint configuration
+  **Feed de Notícias**
+O feed de notícias exibe postagens das pessoas seguidas em ordem da mais recente para mais antiga.
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+  **Interações nas Postagens**
+As postagens podem receber curtidas e comentários de outros usuários.
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+## Tecnologias Utilizadas
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+**Frontend:**
+* [React](https://reactjs.org/) 
+* [TypeScript](https://www.typescriptlang.org/) 
+* [Vite](https://vitejs.dev/) 
+* [Redux Toolkit](https://redux-toolkit.js.org/) 
+* [Styled Components](https://styled-components.com/)
+* [Axios](https://axios-http.com/)
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+**Backend:**
+* [Python](https://www.python.org/)
+* [Django](https://www.djangoproject.com/)
+* [Django Rest Framework (DRF)](https://www.django-rest-framework.org/)
+* [JWT (JSON Web Tokens)](https://jwt.io/)
+* [Poetry](https://python-poetry.org/)
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## Pré-requisitos
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+* [Node.js](https://nodejs.org/en/) (Versão 18 ou superior)
+* [Python](https://www.python.org/downloads/) (Versão 3.10 ou superior)
+* [Poetry](https://python-poetry.org/docs/#installation) 
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+## Como rodar o projeto localmente
+
+**1. Clonar repositório**
+**2. Rodar o Backend:**
+
+  # Abra um terminal e navegue até a pasta do backend:
+  cd backend
+  # Instale as dependências usando o Poetry
+  poetry install
+
+  # Ative o ambiente virtual do Poetry
+  poetry shell
+
+  # Rode as migrações para criar o banco de dados
+  python manage.py migrate
+
+  # Inicie o servidor do Django (rodará na porta 8000)
+  python manage.py runserver
+
+**3. Rodar o Frontend:**
+
+# Abra um novo terminal e navegue até a pasta do frontend:
+cd frontend
+
+# Instale as dependências do Node
+npm install
+
+# Inicie o servidor de desenvolvimento do Vite (uma porta padrão será designada)
+npm run dev
+
+## Variáveis de Ambiente
+
+Para rodar o projeto localmente, pode ser necessário configurar algumas variáveis de ambiente.
+
+**Backend:**
+Criar um arquivo `.env` na raiz da pasta `backend` com as seguintes variáveis:
+SECRET_KEY=a_sua_chave_secreta_do_django_aqui
+DEBUG=True
+# Adicione outras configurações que utilize, como as credenciais da base de dados
+**Frontend:**
+Caso tenha configurado o Axios para ler o URL da API de uma variável, crie um arquivo .env na pasta frontend:
+
+Snippet de código
+VITE_API_URL=http://localhost:8000/api
+
+# Acesse e experimente o projeto através do link:
