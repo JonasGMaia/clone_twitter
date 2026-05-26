@@ -47,44 +47,44 @@ As postagens podem receber curtidas e comentários de outros usuários.
 **1. Clonar repositório**
 **2. Rodar o Backend:**
 
-  # Abra um terminal e navegue até a pasta do backend:
+  ## Abra um terminal e navegue até a pasta do backend:
   cd backend
-  # Instale as dependências usando o Poetry
+  ## Instale as dependências usando o Poetry
   poetry install
 
-  # Ative o ambiente virtual do Poetry
+  ## Ative o ambiente virtual do Poetry
   poetry shell
 
-  # Rode as migrações para criar o banco de dados
+  ## Rode as migrações para criar o banco de dados
   python manage.py migrate
 
-  # Inicie o servidor do Django (rodará na porta 8000)
+  ## Inicie o servidor do Django (rodará na porta 8000)
   python manage.py runserver
 
 **3. Rodar o Frontend:**
 
-# Abra um novo terminal e navegue até a pasta do frontend:
-cd frontend
+  ## Abra um novo terminal e navegue até a pasta do frontend:
+  cd frontend
 
-# Instale as dependências do Node
-npm install
+  ## Instale as dependências do Node
+  npm install
 
-# Inicie o servidor de desenvolvimento do Vite (uma porta padrão será designada)
-npm run dev
+  ## Inicie o servidor de desenvolvimento do Vite (uma porta padrão será designada)
+  npm run dev
 
-## Variáveis de Ambiente
+  ## Variáveis de Ambiente
 
-Para rodar o projeto localmente, pode ser necessário configurar algumas variáveis de ambiente.
+  Para rodar o projeto localmente, pode ser necessário configurar algumas variáveis de ambiente.
 
 **Backend:**
-Criar um arquivo `.env` na raiz da pasta `backend` com as seguintes variáveis:
+### Criar um arquivo `.env` na raiz da pasta `backend` com as seguintes variáveis:
 SECRET_KEY=a_sua_chave_secreta_do_django_aqui
 DEBUG=True
-# Adicione outras configurações que utilize, como as credenciais da base de dados
+### Adicione outras configurações que utilize, como as credenciais da base de dados
 **Frontend:**
-Caso tenha configurado o Axios para ler o URL da API de uma variável, crie um arquivo .env na pasta frontend:
+### Caso tenha configurado o Axios para ler o URL da API de uma variável, crie um arquivo .env na pasta frontend:
 
 Snippet de código
 VITE_API_URL=http://localhost:8000/api
 
-# Acesse e experimente o projeto através do link:
+## Acesse e experimente o projeto através do link:
