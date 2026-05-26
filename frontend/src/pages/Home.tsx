@@ -68,7 +68,7 @@
             <ComposeTextArea
                 value={newTweetContent}
                 onChange={(e) => setNewTweetContent(e.target.value)}
-                placeholder="O que está a acontecer?"
+                placeholder="E aí, qual a boa?"
                 maxLength={280}
             />
             <ComposeAction style={{ justifyContent: 'space-between', alignItems: 'center' }}>

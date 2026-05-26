@@ -41,7 +41,7 @@
             <Title>Entrar</Title>
             <form onSubmit={handleSubmit}>
             <InputGroup>
-                <Label htmlFor="username">Utilizador</Label>
+                <Label htmlFor="username">Usuário</Label>
                 <Input 
                 type="text" 
                 id="username" 
@@ -52,7 +52,7 @@
             </InputGroup>
 
             <InputGroup>
-                <Label htmlFor="password">Palavra-passe</Label>
+                <Label htmlFor="password">Senha</Label>
                 <Input 
                 type="password" 
                 id="password" 
@@ -70,7 +70,7 @@
             </form>
 
             <AuthFooter>
-                Não tem uma conta? <StyledLink to="/register">Registe-se aqui</StyledLink>
+                Não tem uma conta? <StyledLink to="/register">Inscreva-se aqui</StyledLink>
             </AuthFooter>
         </AuthBox>
         </AuthContainer>

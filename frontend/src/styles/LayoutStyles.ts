@@ -11,7 +11,8 @@
 
     export const Sidebar = styled.aside`
     width: 250px;
-    border-right: ${(props) => props.theme.borders.thickness} solid ${(props) => props.theme.colors.border};
+    // border-right: ${(props) => props.theme.borders.thickness} solid ${(props) => props.theme.colors.border};
+    border: none;
     padding: ${(props) => props.theme.spacing.large};
     display: flex;
     flex-direction: column;
@@ -20,7 +21,8 @@
 
     export const MainContent = styled.main`
     flex: 1;
-    border-right: ${(props) => props.theme.borders.thickness} solid ${(props) => props.theme.colors.border};
+        // border-right: ${(props) => props.theme.borders.thickness} solid ${(props) => props.theme.colors.border};
+    border: none;
     `;
 
     export const NavLink = styled(Link)`

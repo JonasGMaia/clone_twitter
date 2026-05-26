@@ -11,8 +11,7 @@
     body {
         background-color: ${(props) => props.theme.colors.background};
         color: ${(props) => props.theme.colors.text};
-        font-family: 'Courier New', Courier, monospace; /* Tipografia monoespaçada para o toque retrô, pode trocar se preferir */
-        -webkit-font-smoothing: antialiased;
+        font-family: 'opensans', sans-serif;
     }
 
     a {
@@ -23,7 +22,8 @@
     button {
         cursor: pointer;
         font-family: inherit;
-        border: ${(props) => props.theme.borders.thickness} solid ${(props) => props.theme.colors.border};
+        // border: ${(props) => props.theme.borders.thickness} solid ${(props) => props.theme.colors.border};
+        border: none;
         background-color: transparent;
         transition: all 0.2s ease-in-out;
 

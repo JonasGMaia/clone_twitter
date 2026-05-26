@@ -77,7 +77,7 @@
         }
     };
 
-    if (!profile) return <ProfileContainer>A carregar informações...</ProfileContainer>;
+    if (!profile) return <ProfileContainer>Carregando suas informações...</ProfileContainer>;
 
     return (
         <>
@@ -105,7 +105,7 @@
             <DisplayName>{profile.first_name || profile.username}</DisplayName>
             <Username>@{profile.username}</Username>
             
-            <BioText>{profile.bio || 'Espaço em branco... Adicione uma biografia.'}</BioText>
+            <BioText>{profile.bio || 'Esta é a bio. Fale sobre você!'}</BioText>
             
             <StatsRow>
             <span><strong>{profile.following_count}</strong> Seguindo</span>
@@ -149,7 +149,7 @@
                 />
                 </InputGroup>
 
-                <SubmitButton type="submit">Guardar Alterações</SubmitButton>
+                <SubmitButton type="submit">Salvar Alterações</SubmitButton>
             </form>
             </ProfileContainer>
         )}

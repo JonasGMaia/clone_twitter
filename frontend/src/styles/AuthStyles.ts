@@ -14,9 +14,10 @@
     width: 100%;
     max-width: 400px;
     padding: ${(props) => props.theme.spacing.xlarge};
-    border: ${(props) => props.theme.borders.thickness} solid ${(props) => props.theme.colors.border};
+    // border: ${(props) => props.theme.borders.thickness} solid ${(props) => props.theme.colors.border};
+    border: none;
     background-color: ${(props) => props.theme.colors.surface};
-    box-shadow: 8px 8px 0px ${(props) => props.theme.colors.border}; /* Sombra sólida para o toque retrô */
+    // box-shadow: 8px 8px 0px ${(props) => props.theme.colors.border}; /* Sombra sólida para o toque retrô */
     `;
 
     export const Title = styled.h1`
@@ -58,6 +59,7 @@
     text-transform: uppercase;
     letter-spacing: 1px;
     margin-top: ${(props) => props.theme.spacing.medium};
+    color: ${(props) => props.theme.colors.text};
     `;
 
         export const AuthFooter = styled.div`
