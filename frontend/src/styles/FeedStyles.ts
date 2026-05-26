@@ -3,7 +3,9 @@
 
     export const FeedHeader = styled.header`
     padding: ${(props) => props.theme.spacing.medium};
-    border-bottom: ${(props) => props.theme.borders.thickness} solid ${(props) => props.theme.colors.border};
+    // border-bottom: ${(props) => props.theme.borders.thickness} solid ${(props) => props.theme.colors.border};
+    background-color: ${(props) => props.theme.colors.text};
+    color: ${(props) => props.theme.colors.background};
     font-weight: bold;
     text-transform: uppercase;
     letter-spacing: 2px;

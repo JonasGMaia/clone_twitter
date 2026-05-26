@@ -21,7 +21,7 @@
     export const AvatarBlock = styled.div`
     width: 120px;
     height: 120px;
-    background-color: ${(props) => props.theme.colors.background};
+    background-color: ${(props) => props.theme.colors.border};
     border: ${(props) => props.theme.borders.thickness} solid ${(props) => props.theme.colors.border};
     position: absolute;
     bottom: -60px;
