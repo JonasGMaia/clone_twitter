@@ -141,7 +141,7 @@
                     padding: '8px 16px', 
                     borderRadius: '8px', 
                     cursor: 'pointer',
-                    backgroundColor: isSubmittingComment || !commentContent.trim() ? '#555' : '#1da1f2',
+                    backgroundColor: isSubmittingComment || !commentContent.trim() ? '#555' : '#f21d1d',
                     color: 'white',
                     border: 'none',
                     fontWeight: 'bold'
