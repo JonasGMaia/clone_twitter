@@ -33,10 +33,10 @@
     return (
         <AuthContainer>
         <AuthBox>
-            <Title>Registro</Title>
+            <Title>Cadastro</Title>
             <form onSubmit={handleSubmit}>
             <InputGroup>
-                <Label htmlFor="reg-username">Utilizador</Label>
+                <Label htmlFor="reg-username">Usuário</Label>
                 <Input 
                 type="text" 
                 id="reg-username" 
@@ -58,7 +58,7 @@
             </InputGroup>
 
             <InputGroup>
-                <Label htmlFor="reg-password">Palavra-passe</Label>
+                <Label htmlFor="reg-password">Senha</Label>
                 <Input 
                 type="password" 
                 id="reg-password" 
@@ -71,7 +71,7 @@
             {error && <p style={{ color: 'red', marginBottom: '16px', fontSize: '0.9rem' }}>{error}</p>}
 
             <SubmitButton type="submit" disabled={isLoading}>
-                {isLoading ? 'A criar...' : 'Criar Conta'}
+                {isLoading ? 'Criando...' : 'Criar Conta'}
             </SubmitButton>
             </form>
             
