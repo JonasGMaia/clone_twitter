@@ -133,7 +133,7 @@
                 <ComposeTextArea 
                     value={bio} 
                     onChange={(e) => setBio(e.target.value)} 
-                    placeholder="Fale um pouco sobre si..."
+                    placeholder="Fale um pouco sobre você..."
                     maxLength={160}
                     style={{ border: '2px solid #1A1A1A' }}
                 />
