@@ -93,3 +93,5 @@ Snippet de código
 VITE_API_URL=http://localhost:8000/api
 
 ## Acesse e experimente o projeto através do link:
+
+https://twitterclone-frontend-lime.vercel.app/login
