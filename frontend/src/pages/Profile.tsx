@@ -20,6 +20,14 @@
     following_count: number;
     }
 
+    const getImageUrl = (imagePath: string | null) => {
+    if (!imagePath) return '';
+    if (imagePath.startsWith('http')) {
+        return imagePath;
+    }
+    return `http://localhost:8000${imagePath}`;
+};
+
     export function Profile() {
     const [profile, setProfile] = useState<UserProfile | null>(null);
     const [isEditing, setIsEditing] = useState(false);
@@ -81,13 +89,13 @@
 
     return (
         <>
-        <CoverBlock>
+            <CoverBlock>
             {profile.cover_picture && (
-            <img src={`http://localhost:8000${profile.cover_picture}`} alt="Capa" />
+            <img src={getImageUrl(profile.cover_picture)} alt="Capa" />
             )}
             <AvatarBlock>
             {profile.profile_picture && (
-                <img src={`http://localhost:8000${profile.profile_picture}`} alt="Perfil" />
+                <img src={getImageUrl(profile.profile_picture)} alt="Perfil" />
             )}
             </AvatarBlock>
         </CoverBlock>

@@ -9,6 +9,7 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework import status
 from django.shortcuts import get_object_or_404
 from .models import User
+from rest_framework.generics import ListAPIView
 
 class ToggleFollowView(APIView):
     # Exige que o usuário envie o token JWT (esteja logado) para acessar
@@ -53,3 +54,11 @@ class ProfileView(RetrieveUpdateAPIView):
 class UserCreateView(generics.CreateAPIView):
     serializer_class = UserRegistrationSerializer
     permission_classes = [AllowAny] # Permite que utilizadores não logados consigam aceder para criar conta
+
+class UserListView(ListAPIView):
+    serializer_class = UserProfileSerializer
+    permission_classes = [IsAuthenticated]
+
+    def get_queryset(self):
+        # Retorna todos os usuários, exceto o usuário que está fazendo a requisição
+        return User.objects.exclude(id=self.request.user.id)
