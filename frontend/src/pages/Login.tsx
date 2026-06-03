@@ -23,7 +23,10 @@
         const response = await api.post('/token/', { username, password });
         
         // Guarda o token no Redux e no LocalStorage
-        dispatch(loginSuccess(response.data.access));
+        dispatch(loginSuccess({
+            token: response.data.access,
+            username: username // <-- A variável do seu input de login
+        }));
         
         // Redireciona para a Home
         navigate('/');

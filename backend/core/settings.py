@@ -67,7 +67,7 @@ AUTH_USER_MODEL = "users.User"
 
 
 # Usa o env.list para ler a string e transformá-la em uma lista do Python
-CORS_ALLOWED_ORIGINS = env.list('CORS_ALLOWED_ORIGINS', default=['http://localhost:5173'])
+CORS_ALLOWED_ORIGINS = env.list('CORS_ALLOWED_ORIGINS', default=['http://localhost:5173', 'http://localhost:5174'])
 
 ROOT_URLCONF = "core.urls"
 

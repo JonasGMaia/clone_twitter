@@ -3,10 +3,11 @@
     import { api } from '../api/axios';
     import { TweetInteractions } from '../components/TweetInteractions';
     import { FollowButton } from '../components/FollowButton';
+    import { WhoToFollow } from '../components/WhoToFollow';
 
-    // Importando os componentes estilizados que criamos no Passo 3
     import { FeedHeader, ComposeBox, ComposeTextArea, ComposeAction, TweetCard, TweetAuthor, TweetContent } from '../styles/FeedStyles';
-    import { SubmitButton } from '../styles/AuthStyles'; 
+    import { SubmitButton } from '../styles/AuthStyles';
+    import { useSelector } from 'react-redux';
 
     interface Tweet {
     id: number;
@@ -16,9 +17,11 @@
     created_at: string;
     likes_count: number;
     comments_count: number;
+    is_following: boolean;
     }
 
     export const Home: React.FC = () => {
+    const myUsername = useSelector((state: any) => state.auth.username);
     const [tweets, setTweets] = useState<Tweet[]>([]);
     const [newTweetContent, setNewTweetContent] = useState('');
     const [isPosting, setIsPosting] = useState(false);
@@ -59,59 +62,77 @@
 
     return (
         <>
+        {/* 1. Header voltou para fora do Flex, ficando exatamente como era originalmente */}
         <FeedHeader>
             Página Inicial
         </FeedHeader>
 
-        <ComposeBox>
-            <form onSubmit={handlePostTweet} style={{ display: 'flex', flexDirection: 'column' }}>
-            <ComposeTextArea
-                value={newTweetContent}
-                onChange={(e) => setNewTweetContent(e.target.value)}
-                placeholder="E aí, qual a boa?"
-                maxLength={280}
-            />
-            <ComposeAction style={{ justifyContent: 'space-between', alignItems: 'center' }}>
-                <span style={{ fontSize: '0.8rem', color: newTweetContent.length >= 280 ? 'red' : 'inherit' }}>
-                {newTweetContent.length}/280
-                </span>
-                <SubmitButton 
-                type="submit" 
-                disabled={isPosting || !newTweetContent.trim()}
-                style={{ width: 'auto', marginTop: 0, padding: '8px 24px' }} 
-                >
-                {isPosting ? 'Postando...' : 'Publicar'}
-                </SubmitButton>
-            </ComposeAction>
-            </form>
-        </ComposeBox>
+        {/* 2. O Flex agora isola apenas o conteúdo (Caixa de postar + Feed) e a barra (Quem Seguir) */}
+        <div style={{ display: 'flex', gap: '30px', maxWidth: '950px' }}>
 
-        <div>
-            {tweets.length === 0 ? (
-            <p style={{ textAlign: 'center', padding: '40px', opacity: 0.6 }}>
-                O feed está vazio. Faça a sua primeira postagem!
-            </p>
-            ) : (
-            tweets.map((tweet) => (
-                <TweetCard key={tweet.id}>
-                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '8px' }}>
-                    <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-                    <TweetAuthor>@{tweet.author_username}</TweetAuthor>
-                    <FollowButton username={tweet.author_username} />
-                    </div>
-                    <span style={{ fontSize: '0.8rem', opacity: 0.7 }}>{formatDate(tweet.created_at)}</span>
-                </div>
-                
-                <TweetContent>{tweet.content}</TweetContent>
-                
-                <TweetInteractions 
-                    tweetId={tweet.id} 
-                    initialLikes={tweet.likes_count} 
-                    initialComments={tweet.comments_count} 
+            {/* Coluna Central (Caixa de Postar + Posts) */}
+            <div style={{ flex: 1, maxWidth: '600px' }}>
+            <ComposeBox>
+                <form onSubmit={handlePostTweet} style={{ display: 'flex', flexDirection: 'column' }}>
+                <ComposeTextArea
+                    value={newTweetContent}
+                    onChange={(e) => setNewTweetContent(e.target.value)}
+                    placeholder="E aí, qual a boa?"
+                    maxLength={280}
                 />
-                </TweetCard>
-            ))
-            )}
+                <ComposeAction style={{ justifyContent: 'space-between', alignItems: 'center' }}>
+                    <span style={{ fontSize: '0.8rem', color: newTweetContent.length >= 280 ? 'red' : 'inherit' }}>
+                    {newTweetContent.length}/280
+                    </span>
+                    <SubmitButton 
+                    type="submit" 
+                    disabled={isPosting || !newTweetContent.trim()}
+                    style={{ width: 'auto', marginTop: 0, padding: '8px 24px' }} 
+                    >
+                    {isPosting ? 'Postando...' : 'Publicar'}
+                    </SubmitButton>
+                </ComposeAction>
+                </form>
+            </ComposeBox>
+
+            <div>
+                {tweets.length === 0 ? (
+                <p style={{ textAlign: 'center', padding: '40px', opacity: 0.6 }}>
+                    O feed está vazio. Faça a sua primeira postagem!
+                </p>
+                ) : (
+                tweets.map((tweet) => (
+                    <TweetCard key={tweet.id}>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '8px' }}>
+                        <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+                        <TweetAuthor>@{tweet.author_username}</TweetAuthor>
+                        {/* Evita exibir o botão de seguir no próprio usuário */}
+                        {tweet.author_username && tweet.author_username !== myUsername && (<FollowButton username={tweet.author_username}
+                        initialIsFollowing={tweet.is_following} />)}
+                        </div>
+                        <span style={{ fontSize: '0.8rem', opacity: 0.7 }}>{formatDate(tweet.created_at)}</span>
+                    </div>
+                    
+                    <TweetContent>{tweet.content}</TweetContent>
+                    
+                    <TweetInteractions 
+                        tweetId={tweet.id} 
+                        initialLikes={tweet.likes_count} 
+                        initialComments={tweet.comments_count} 
+                    />
+                    </TweetCard>
+                ))
+                )}
+            </div>
+            </div>
+            
+            {/* Coluna da Direita (Barra Lateral Menor) */}
+            <div style={{ width: '300px', display: 'flex', flexDirection: 'column' }}>
+            <div style={{ marginTop: '20px' }}> 
+                <WhoToFollow />
+            </div>
+            </div>
+
         </div>
         </>
     );
