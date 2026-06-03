@@ -20,14 +20,11 @@
         setIsFollowing(!isFollowing);
         
         try {
-        if (isFollowing) {
-            await api.delete(`/users/${username}/unfollow/`);
-        } else {
-            await api.post(`/users/${username}/follow/`);
-        }
+        // Usa SEMPRE a mesma rota POST, pois o backend já faz o papel de "Toggle"
+        await api.post(`/users/${username}/follow/`);
         } catch (error) {
         console.error('Erro ao seguir/deixar de seguir', error);
-        // Reverte se a API falhar
+        // Reverte se a API falhar (que era o que estava acontecendo)
         setIsFollowing(isFollowing);
         } finally {
         setIsLoading(false);
