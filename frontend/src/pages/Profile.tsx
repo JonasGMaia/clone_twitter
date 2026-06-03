@@ -25,7 +25,8 @@
     if (imagePath.startsWith('http')) {
         return imagePath;
     }
-    return `http://localhost:8000${imagePath}`;
+    const baseUrl = import.meta.env.VITE_BACKEND_URL || 'http://localhost:8000';
+    return `${baseUrl}${imagePath}`;
 };
 
     export function Profile() {
